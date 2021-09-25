@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" href="">
     <meta charset="utf-8">
@@ -132,22 +132,25 @@
 </head>
 
 <body>
-<form method="post" action="/create">
+<form method="post" action="/update">
     <div class="form">
         <div class="title">Welcome</div>
         <div class="subtitle">Create your cards!</div>
+        <input type="hidden"
+               name="id"
+               th:value="${book.id}"/>
         <div class="input-container ic1">
-            <input id="firstname" class="input" type="text" name="name" placeholder=" "/>
+            <input id="firstname" class="input" type="text" name="name" placeholder=" " th:value="${book.name}"/>
             <div class="cut"></div>
             <label for="firstname" class="placeholder">Book name</label>
         </div>
         <div class="input-container ic2">
-            <input id="lastname" class="input" type="text" name="author" placeholder=" " />
+            <input id="lastname" class="input" type="text" name="author" placeholder=" " th:value="${book.author}"/>
             <div class="cut"></div>
             <label for="lastname" class="placeholder">Book author</label>
         </div>
         <div class="input-container ic2">
-            <input id="email" class="input" type="text" name="pages" placeholder=" " />
+            <input id="email" class="input" type="text" name="pages" placeholder=" " th:value="${book.pages}"/>
             <div class="cut-short cut"></div>
             <label for="email" class="placeholder">Number of pages</label>
         </div>

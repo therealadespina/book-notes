@@ -4,12 +4,39 @@
     <meta charset="utf-8">
     <title>Edit book</title>
     <style>
+        ul {
+            position: sticky;
+            top: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #15172b;
+            overflow: hidden;
+            border-radius: 8px 8px 8px 8px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #414464;
+        }
+
         body {
-            align-items: center;
+            /* align-items: center; */
             background: linear-gradient(#e66465, #9198e5);
-            display: flex;
-            justify-content: center;
-            height: 100vh;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* height: 100vh; */
         }
 
         .form {
@@ -19,6 +46,10 @@
             height: 500px;
             padding: 20px;
             width: 320px;
+            position: fixed; top: 50%; left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
         }
 
         .title {
@@ -120,7 +151,6 @@
             font-size: 18px;
             height: 50px;
             margin-top: 38px;
-        // outline: 0;
             text-align: center;
             width: 100%;
         }
@@ -128,35 +158,62 @@
         .submit:active {
             background-color: #06b;
         }
+
+        a:link, a:visited {
+            color: black;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 1s;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 8px 8px 8px 8px;
+        }
+
+        a:hover, a:active {
+            background-color: #08d;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
-<form method="post" action="/update">
-    <div class="form">
-        <div class="title">Welcome</div>
-        <div class="subtitle">Edit your favorite book!</div>
-        <input type="hidden"
-               name="id"
-               th:value="${book.id}"/>
-        <div class="input-container ic1">
-            <input id="firstname" class="input" type="text" name="name" placeholder=" " th:value="${book.name}"/>
-            <div class="cut"></div>
-            <label for="firstname" class="placeholder">Book name</label>
+<ul>
+    <li><a style="color: #ffffff;" href="/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+            <path fill-rule="evenodd"
+                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+        </svg>
+    </a></li>
+</ul>
+    <form method="post" action="/update">
+        <div class="form">
+            <div class="title">Welcome</div>
+            <div class="subtitle">Edit your book!</div>
+            <input type="hidden"
+                   name="id"
+                   th:value="${book.id}"/>
+            <div class="input-container ic1">
+                <input id="firstname" class="input" type="text" name="name" placeholder=" " th:value="${book.name}"/>
+                <div class="cut"></div>
+                <label for="firstname" class="placeholder">Book name</label>
+            </div>
+            <div class="input-container ic2">
+                <input id="lastname" class="input" type="text" name="author" placeholder=" " th:value="${book.author}"/>
+                <div class="cut"></div>
+                <label for="lastname" class="placeholder">Book author</label>
+            </div>
+            <div class="input-container ic2">
+                <input id="email" class="input" type="text" name="pages" placeholder=" " th:value="${book.pages}"/>
+                <div class="cut-short cut"></div>
+                <label for="email" class="placeholder">Number of pages</label>
+            </div>
+            <button type="text" class="submit">submit</button>
         </div>
-        <div class="input-container ic2">
-            <input id="lastname" class="input" type="text" name="author" placeholder=" " th:value="${book.author}"/>
-            <div class="cut"></div>
-            <label for="lastname" class="placeholder">Book author</label>
-        </div>
-        <div class="input-container ic2">
-            <input id="email" class="input" type="text" name="pages" placeholder=" " th:value="${book.pages}"/>
-            <div class="cut-short cut"></div>
-            <label for="email" class="placeholder">Number of pages</label>
-        </div>
-        <button type="text" class="submit">submit</button>
-    </div>
-</form>
+    </form>
 </body>
 
 </html>

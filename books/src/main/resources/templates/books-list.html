@@ -2,10 +2,36 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Library</title>
     <style>
+        ul {
+            position: sticky;
+            top: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #272727;
+            overflow: hidden;
+            border-radius: 8px 8px 8px 8px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #5f5f5f;
+        }
+
         a:link, a:visited {
-            background-color: white;
             color: black;
             padding: 14px 25px;
             text-align: center;
@@ -13,18 +39,22 @@
             display: inline-block;
             transition: background-color 1s;
             font-family: Arial, Helvetica, sans-serif;
+            border-radius: 8px 8px 8px 8px;
         }
 
         a:hover, a:active {
             background-color: #08d;
             color: white;
         }
+
         .table {
+            padding-top: 35px;
             width: 100%;
             border: none;
             margin-bottom: 20px;
             font-family: Arial, Helvetica, sans-serif;
         }
+
         .table thead th {
             font-weight: bold;
             text-align: left;
@@ -33,31 +63,40 @@
             background: #d8d8d8;
             font-size: 14px;
         }
+
         .table thead tr th:first-child {
             border-radius: 8px 0 0 8px;
         }
+
         .table thead tr th:last-child {
             border-radius: 0 8px 8px 0;
         }
+
         .table tbody td {
             text-align: left;
             border: none;
             padding: 10px 15px;
             font-size: 14px;
-            vertical-align: top;
         }
-        .table tbody tr:nth-child(even){
+
+        .table tbody tr:nth-child(even) {
             background: #f3f3f3;
         }
+
         .table tbody tr td:first-child {
             border-radius: 8px 0 0 8px;
         }
+
         .table tbody tr td:last-child {
             border-radius: 0 8px 8px 0;
         }
     </style>
 </head>
 <body>
+<ul>
+    <li><a style="color: #ffffff;" href="/">Home</a></li>
+    <li><a style="color: #ffffff;" href="/create-form">Add book</a></li>
+</ul>
 <table class="table">
     <tr>
         <th>Name</th>
@@ -74,7 +113,6 @@
         <td><a th:href="@{'/delete/' + ${book.id}}">Delete</a></td>
     </tr>
 </table>
-<a href="/create-form">Add book</a>
 
 </body>
 </html>

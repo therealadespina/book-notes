@@ -2,7 +2,7 @@ package ru.adespina.models;
 
 import java.util.*;
 
-public class BooksStorage {
+public class BooksStorage<T> {
     private static final Set<Book> books = new HashSet<>();
 
     public static Set<Book> getBooks() {

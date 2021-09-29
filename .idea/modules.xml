@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/adespina.shop.iml" filepath="$PROJECT_DIR$/.idea/adespina.shop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/books/spring-boot-initial.iml" filepath="$PROJECT_DIR$/books/spring-boot-initial.iml" />
+    </modules>
+  </component>
+</project>

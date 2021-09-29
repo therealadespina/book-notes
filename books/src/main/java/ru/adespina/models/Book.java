@@ -18,4 +18,14 @@ public class Book {
         this.author = author;
         this.pages = pages;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", pages=" + pages +
+                '}';
+    }
 }

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import ru.adespina.models.Book;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,11 +18,11 @@ public class Application {
 
     @Bean
     public DataSource h2DataSource() {
-        JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setURL("jdbc:h2:./db");
-        jdbcDataSource.setUser("user");
-        jdbcDataSource.setPassword("password");
-        return jdbcDataSource;
+        JdbcDataSource dataSource = new JdbcDataSource();
+        dataSource.setURL("jdbc:h2:./db");
+        dataSource.setUser("user");
+        dataSource.setPassword("password");
+        return dataSource;
     }
 
     @Bean
@@ -33,7 +32,7 @@ public class Application {
                 String sql = new String(inputStream.readAllBytes());
                 try (
                         Connection connection = dataSource.getConnection();
-                        Statement statement = connection.createStatement();
+                        Statement statement = connection.createStatement()
                 ) {
                     statement.executeUpdate(sql);
                     ResultSet rs = statement.executeQuery("SELECT book_id, pages, name, author FROM book");

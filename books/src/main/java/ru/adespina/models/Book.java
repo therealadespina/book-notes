@@ -19,6 +19,12 @@ public class Book {
         this.pages = pages;
     }
 
+    public Book(String name, String author, int pages) {
+        this.name = name;
+        this.author = author;
+        this.pages = pages;
+    }
+
     @Override
     public String toString() {
         return "Book{" +

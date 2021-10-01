@@ -1,6 +1,7 @@
 package ru.adespina;
 
 import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,9 +18,9 @@ import java.sql.Statement;
 public class Application {
 
     @Bean
-    public DataSource h2DataSource() {
+    public DataSource h2DataSource(@Value("${jdbcUrl}") String jdbcUrl) {
         JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setURL("jdbc:h2:./db");
+        dataSource.setURL(jdbcUrl);
         dataSource.setUser("user");
         dataSource.setPassword("password");
         return dataSource;
@@ -37,7 +38,11 @@ public class Application {
                     statement.executeUpdate(sql);
                     ResultSet rs = statement.executeQuery("SELECT book_id, pages, name, author FROM book");
                     while (rs.next()) {
-                        Book book = new Book(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                        Book book = new Book(
+                                rs.getString(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                rs.getInt(4));
                         System.out.println(book);
                     }
                 }

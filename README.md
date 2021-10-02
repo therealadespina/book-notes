@@ -1,1 +1,1 @@
-# adespina.shop
+# shop (pet project)

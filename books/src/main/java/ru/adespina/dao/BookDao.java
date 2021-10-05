@@ -2,13 +2,12 @@ package ru.adespina.dao;
 
 import ru.adespina.models.Book;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface BookDao {
-    List<Book> findAll() throws SQLException;
+    List<Book> findAll();
     Book save(Book book);
-    Book getById(Integer bookId);
+    Book getById(String bookId);
     Book update(Book book);
     void delete(Book book);
     void deleteAll();

@@ -21,7 +21,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findAll() {
-        final String sql = "SELECT book_id, pages, name, author FROM book";
+        final String sql = "SELECT book_id, name, author, pages FROM book";
         List<Book> books = new ArrayList<>();
         try (
                 Connection connection = dataSource.getConnection();
@@ -36,7 +36,6 @@ public class BookDaoImpl implements BookDao {
                         rs.getInt(4));
                 books.add(book);
             }
-
         } catch (SQLException sqlException) {
             throw new RuntimeException(sqlException);
         }

@@ -5,12 +5,10 @@ import org.springframework.stereotype.Component;
 import ru.adespina.models.Book;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class BookDaoImpl implements BookDao {
@@ -23,7 +21,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findAll() {
-        final String sql = "SELECT book_id, pages, name, author FROM book";
+        final String sql = "SELECT book_id, name, author, pages FROM book";
         List<Book> books = new ArrayList<>();
         try (
                 Connection connection = dataSource.getConnection();
@@ -38,7 +36,6 @@ public class BookDaoImpl implements BookDao {
                         rs.getInt(4));
                 books.add(book);
             }
-
         } catch (SQLException sqlException) {
             throw new RuntimeException(sqlException);
         }
@@ -47,22 +44,75 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book save(Book book) {
-        return null;
+        String insertSql = "INSERT INTO book (name, author, pages) VALUES (?, ?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            preparedStatement.setString(1, book.getName());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.setInt(3, book.getPages());
+            preparedStatement.executeUpdate();
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                resultSet.next();
+                book.setId(resultSet.getString(1));
+            }
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
+        return book;
     }
 
     @Override
-    public Book getById(Integer bookId) {
-        return null;
+    public Book getById(String bookId) {
+        String getByIdSql = "SELECT book_id, name, author, pages FROM book WHERE book_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getByIdSql, Statement.RETURN_GENERATED_KEYS)
+        ) {
+            preparedStatement.setInt(1, Integer.parseInt(bookId));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    throw new RuntimeException(String.format("book with id %s was not found", bookId));
+                }
+                return new Book(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4));
+            }
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
     }
 
     @Override
     public Book update(Book book) {
-        return null;
+        if (Objects.isNull(book.getId())) {
+            throw new RuntimeException("Can`t updated unsaved book");
+        }
+        String updateSql = "UPDATE book SET name = ?, author = ?, pages = ? WHERE book_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateSql)
+        ) {
+            preparedStatement.setString(1, book.getName());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.setInt(3, book.getPages());
+            preparedStatement.setString(4, book.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
+        return book;
     }
 
     @Override
     public void delete(Book book) {
+        final String deleteByIdSql = "DELETE FROM book WHERE book_id = ?";
 
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(deleteByIdSql)
+        ) {
+            statement.setString(1, book.getId());
+            statement.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw new RuntimeException(sqlException);
+        }
     }
 
     @Override
@@ -78,6 +128,5 @@ public class BookDaoImpl implements BookDao {
         } catch (SQLException sqlException) {
             throw new RuntimeException(sqlException);
         }
-
     }
 }

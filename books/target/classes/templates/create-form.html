@@ -4,6 +4,27 @@
     <meta charset="utf-8">
     <title>Add book</title>
     <style>
+        .body_hide {
+            opacity: 0;
+            transition: .9s opacity ease-in-out;
+        }
+
+        .body_visible {
+            opacity: 1;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         ul {
             position: sticky;
             top: 0;
@@ -32,11 +53,14 @@
         }
 
         body {
-            /* align-items: center; */
-            background: linear-gradient(#e66465, #9198e5);
-            /* display: flex; */
-            /* justify-content: center; */
-            /* height: 100vh; */
+            background: white;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            -moz-transition: background-image 0.2s ease-in-out;
+            -webkit-transition: background-image 0.2s ease-in-out;
+            -o-transition: background-image 0.2s ease-in-out;
         }
 
         .form {
@@ -46,7 +70,9 @@
             height: 500px;
             padding: 20px;
             width: 320px;
-            position: fixed; top: 50%; left: 50%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
         }
 
@@ -175,7 +201,7 @@
     </style>
 </head>
 
-<body>
+<body class="body_hide">
 <ul>
     <li><a style="color: #ffffff;" href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
@@ -187,28 +213,33 @@
         </svg>
     </a></li>
 </ul>
-    <form method="post" action="/create">
-        <div class="form">
-            <div class="title">Welcome</div>
-            <div class="subtitle">Add your favorite book!</div>
-            <div class="input-container ic1">
-                <input id="firstname" class="input" type="text" name="name" placeholder=" "/>
-                <div class="cut"></div>
-                <label for="firstname" class="placeholder">Book name</label>
-            </div>
-            <div class="input-container ic2">
-                <input id="lastname" class="input" type="text" name="author" placeholder=" "/>
-                <div class="cut"></div>
-                <label for="lastname" class="placeholder">Book author</label>
-            </div>
-            <div class="input-container ic2">
-                <input id="email" class="input" type="text" name="pages" placeholder=" "/>
-                <div class="cut-short cut"></div>
-                <label for="email" class="placeholder">Number of pages</label>
-            </div>
-            <button type="text" class="submit">submit</button>
+<form method="post" action="/create">
+    <div class="form">
+        <div class="title">Welcome</div>
+        <div class="subtitle">Add your favorite book!</div>
+        <div class="input-container ic1">
+            <input id="firstname" class="input" type="text" name="name" placeholder=" "/>
+            <div class="cut"></div>
+            <label for="firstname" class="placeholder">Book name</label>
         </div>
-    </form>
+        <div class="input-container ic2">
+            <input id="lastname" class="input" type="text" name="author" placeholder=" "/>
+            <div class="cut"></div>
+            <label for="lastname" class="placeholder">Book author</label>
+        </div>
+        <div class="input-container ic2">
+            <input id="email" class="input" type="text" name="pages" placeholder=" "/>
+            <div class="cut-short cut"></div>
+            <label for="email" class="placeholder">Number of pages</label>
+        </div>
+        <button type="text" class="submit">submit</button>
+    </div>
+</form>
+<script>
+    setTimeout(function () {
+        document.body.classList.add('body_visible');
+    }, 200);
+</script>
 </body>
 
 </html>

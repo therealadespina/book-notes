@@ -36,7 +36,7 @@ public class Application {
                         Statement statement = connection.createStatement()
                 ) {
                     statement.executeUpdate(sql);
-                    ResultSet rs = statement.executeQuery("SELECT book_id, pages, name, author FROM book");
+                    ResultSet rs = statement.executeQuery("SELECT book_id, name, author, pages FROM book");
                     while (rs.next()) {
                         Book book = new Book(
                                 rs.getString(1),

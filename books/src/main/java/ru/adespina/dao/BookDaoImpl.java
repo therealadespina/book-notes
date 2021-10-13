@@ -6,9 +6,7 @@ import ru.adespina.models.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Component
 public class BookDaoImpl implements BookDao {
@@ -39,6 +37,7 @@ public class BookDaoImpl implements BookDao {
         } catch (SQLException sqlException) {
             throw new RuntimeException(sqlException);
         }
+        Collections.sort(books);
         return books;
     }
 

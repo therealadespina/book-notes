@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
-public class Book {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Book implements Comparable<Book> {
 
     private String id;
     private String name;
@@ -33,5 +35,16 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", pages=" + pages +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        if (Integer.parseInt(this.id) == Integer.parseInt(o.id)) {
+            return 0;
+        } else if (Integer.parseInt(this.id) < Integer.parseInt(o.id)) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }

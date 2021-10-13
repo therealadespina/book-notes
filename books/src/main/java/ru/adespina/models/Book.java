@@ -39,12 +39,6 @@ public class Book implements Comparable<Book> {
 
     @Override
     public int compareTo(Book o) {
-        if (Integer.parseInt(this.id) == Integer.parseInt(o.id)) {
-            return 0;
-        } else if (Integer.parseInt(this.id) < Integer.parseInt(o.id)) {
-            return -1;
-        } else {
-            return 1;
-        }
+        return Integer.compare(Integer.parseInt(this.id), Integer.parseInt(o.id));
     }
 }
